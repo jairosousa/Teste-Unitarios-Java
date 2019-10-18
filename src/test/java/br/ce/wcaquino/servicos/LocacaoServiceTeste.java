@@ -22,7 +22,7 @@ import org.junit.rules.ExpectedException;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
-import br.ce.wcaquino.exceptions.FilmesSemestoqueException;
+import br.ce.wcaquino.exceptions.FilmesSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
 import br.ce.wcaquino.utils.DataUtils;
 
@@ -68,7 +68,7 @@ public class LocacaoServiceTeste {
 	 * 
 	 * @throws Exception
 	 */
-	@Test(expected = FilmesSemestoqueException.class)
+	@Test(expected = FilmesSemEstoqueException.class)
 	public void deveLancarExcecaoAoAlugarFilmeSemEstoque() throws Exception {
 
 		// Cenário
@@ -85,10 +85,10 @@ public class LocacaoServiceTeste {
 	/**
 	 * Utilizar quando precisar da mensagem
 	 * 
-	 * @throws FilmesSemestoqueException
+	 * @throws FilmesSemEstoqueException
 	 */
 	@Test
-	public void naoDeveAlugarFilmeSemUsuario() throws FilmesSemestoqueException {
+	public void naoDeveAlugarFilmeSemUsuario() throws FilmesSemEstoqueException {
 		// Cenário
 		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 2, 5.0));
 
@@ -109,11 +109,11 @@ public class LocacaoServiceTeste {
 	/**
 	 * Quando execeção é importante
 	 * 
-	 * @throws FilmesSemestoqueException
+	 * @throws FilmesSemEstoqueException
 	 * @throws LocadoraException
 	 */
 	@Test
-	public void naoDeveAlugarFilmeSemFilme() throws FilmesSemestoqueException, LocadoraException {
+	public void naoDeveAlugarFilmeSemFilme() throws FilmesSemEstoqueException, LocadoraException {
 		// Cenário
 		Usuario usuario = new Usuario("Usuario 1");
 
@@ -128,7 +128,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void devePagar75PctoNoFilme3() throws FilmesSemestoqueException, LocadoraException {
+	public void devePagar75PctoNoFilme3() throws FilmesSemEstoqueException, LocadoraException {
 		
 		// cenário
 		Usuario usuario = new Usuario("Usuario 1");
@@ -142,7 +142,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void devePagar50PctoNoFilme4() throws FilmesSemestoqueException, LocadoraException {
+	public void devePagar50PctoNoFilme4() throws FilmesSemEstoqueException, LocadoraException {
 		
 		// cenário
 		Usuario usuario = new Usuario("Usuario 1");
@@ -157,7 +157,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void devePagar25PctoNoFilme5() throws FilmesSemestoqueException, LocadoraException {
+	public void devePagar75PctoNoFilme5() throws FilmesSemEstoqueException, LocadoraException {
 		
 		// cenário
 		Usuario usuario = new Usuario("Usuario 1");
@@ -172,7 +172,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void devePagar0PctoNoFilme6() throws FilmesSemestoqueException, LocadoraException {
+	public void devePagar0PctoNoFilme6() throws FilmesSemEstoqueException, LocadoraException {
 		
 		// cenário
 		Usuario usuario = new Usuario("Usuario 1");
@@ -187,7 +187,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void deveDevolverNaSegundaAoAlugarNoSabado() throws FilmesSemestoqueException, LocadoraException {
+	public void deveDevolverNaSegundaAoAlugarNoSabado() throws FilmesSemEstoqueException, LocadoraException {
 
 		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
 		// cenário

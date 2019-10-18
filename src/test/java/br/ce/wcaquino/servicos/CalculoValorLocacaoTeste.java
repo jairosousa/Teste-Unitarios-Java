@@ -17,7 +17,7 @@ import org.junit.runners.Parameterized.Parameters;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
-import br.ce.wcaquino.exceptions.FilmesSemestoqueException;
+import br.ce.wcaquino.exceptions.FilmesSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
 
 @RunWith(Parameterized.class)
@@ -60,7 +60,7 @@ public class CalculoValorLocacaoTeste {
 	}
 
 	@Test
-	public void deveCalcularValorLocacaoConsiderandoDesconto() throws FilmesSemestoqueException, LocadoraException {
+	public void deveCalcularValorLocacaoConsiderandoDesconto() throws FilmesSemEstoqueException, LocadoraException {
 
 		// cenário
 		Usuario usuario = new Usuario("Usuario 1");

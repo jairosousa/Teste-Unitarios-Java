@@ -9,14 +9,14 @@ import java.util.List;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
-import br.ce.wcaquino.exceptions.FilmesSemestoqueException;
+import br.ce.wcaquino.exceptions.FilmesSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
 import br.ce.wcaquino.utils.DataUtils;
 
 public class LocacaoService {
 
 	public Locacao alugarFilme(Usuario usuario, List<Filme> filmes)
-			throws FilmesSemestoqueException, LocadoraException {
+			throws FilmesSemEstoqueException, LocadoraException {
 
 		if (usuario == null) {
 			throw new LocadoraException("Usuario vazio");
@@ -28,7 +28,7 @@ public class LocacaoService {
 
 		for (Filme filme : filmes) {
 			if (filme.getEstoque() == 0) {
-				throw new FilmesSemestoqueException();
+				throw new FilmesSemEstoqueException();
 			}
 		}
 
