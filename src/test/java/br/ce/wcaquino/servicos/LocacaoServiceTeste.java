@@ -7,9 +7,12 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -39,9 +42,10 @@ public class LocacaoServiceTeste {
 	}
 
 	@Test
-	public void deveAligarFilme() throws Exception {
+	public void deveAlugarFilme() throws Exception {
+		
+		Assume.assumeFalse(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
 		// Cenário
-
 		Usuario usuario = new Usuario("Usuario 1");
 		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 2, 5.0));
 
@@ -153,7 +157,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void devePagar75PctoNoFilme5() throws FilmesSemestoqueException, LocadoraException {
+	public void devePagar25PctoNoFilme5() throws FilmesSemestoqueException, LocadoraException {
 		
 		// cenário
 		Usuario usuario = new Usuario("Usuario 1");
@@ -180,5 +184,21 @@ public class LocacaoServiceTeste {
 		
 		// Verificação (4 + 4 + 3(o terceiro tem desconto 25%) + 2  + 1 + 0 = 14
 		assertThat(resultado.getValor(), is(14.0));
+	}
+	
+	@Test
+	public void deveDevolverNaSegundaAoAlugarNoSabado() throws FilmesSemestoqueException, LocadoraException {
+
+		Assume.assumeTrue(DataUtils.verificarDiaSemana(new Date(), Calendar.SATURDAY));
+		// cenário
+		Usuario usuario = new Usuario("Usuario 1");
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 1, 5.0));
+		
+		// Ação
+		Locacao retorno = service.alugarFilme(usuario, filmes);
+		
+		// Verificação 
+		boolean ehSegunda = DataUtils.verificarDiaSemana(retorno.getDataRetorno(), Calendar.SUNDAY);
+		Assert.assertTrue(ehSegunda);
 	}
 }
