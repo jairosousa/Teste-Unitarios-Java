@@ -24,6 +24,8 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
+import br.ce.wcaquino.dao.LocacaoDAO;
+import br.ce.wcaquino.dao.LocacaoDAOFake;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
@@ -34,7 +36,7 @@ import br.ce.wcaquino.utils.DataUtils;
 public class LocacaoServiceTeste {
 
 	private LocacaoService service;
-
+	
 	@Rule
 	public ErrorCollector error = new ErrorCollector();
 
@@ -44,6 +46,8 @@ public class LocacaoServiceTeste {
 	@Before
 	public void setup() {
 		service = new LocacaoService();
+		LocacaoDAO dao = new LocacaoDAOFake();
+		service.setLocacaoDao(dao);
 	}
 
 	@Test
