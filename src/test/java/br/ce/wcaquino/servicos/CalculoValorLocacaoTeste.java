@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mockito;
 
 import br.ce.wcaquino.dao.LocacaoDAO;
 import br.ce.wcaquino.dao.LocacaoDAOFake;
@@ -27,6 +28,8 @@ import br.ce.wcaquino.exceptions.LocadoraException;
 public class CalculoValorLocacaoTeste {
 
 	private LocacaoService service;
+	
+	private LocacaoDAO dao;
 
 	@Parameter(value = 0)
 	public List<Filme> filmes;
@@ -40,8 +43,10 @@ public class CalculoValorLocacaoTeste {
 	@Before
 	public void setup() {
 		service = new LocacaoService();
-		LocacaoDAO dao = new LocacaoDAOFake();
+		dao = new LocacaoDAOFake();
 		service.setLocacaoDao(dao);
+		spc = Mockito.mock(SPCService.class);
+		service.setSpcService(spc);
 	}
 
 	private static Filme filme1 = umFilme().agora();
@@ -51,6 +56,9 @@ public class CalculoValorLocacaoTeste {
 	private static Filme filme5 = umFilme().agora();
 	private static Filme filme6 = umFilme().agora();
 	private static Filme filme7 = umFilme().agora();
+
+	private SPCService spc;
+
 
 	@Parameters(name= "{2}")
 	public static Collection<Object[]> getParemetros() {
