@@ -127,7 +127,7 @@ public class LocacaoServiceTeste {
 			assertThat(e.getMessage(), is("Usuario vazio"));
 		}
 
-		System.out.println("Forma robusta");
+//		System.out.println("Forma robusta");
 
 	}
 
@@ -229,7 +229,7 @@ public class LocacaoServiceTeste {
 	}
 	
 	@Test
-	public void naoDeveAlugarFilmeParaNegativadoSPC() throws FilmesSemEstoqueException {
+	public void naoDeveAlugarFilmeParaNegativadoSPC() throws Exception {
 		//cenário
 		Usuario usuario = umUsuario().agora();
 		Usuario usuario2 = umUsuario().comNome("Usuario 2").agora();
@@ -273,6 +273,25 @@ public class LocacaoServiceTeste {
 		verify(email, Mockito.atLeastOnce()).notificarAtraso(usuario3);
 		verify(email, never()).notificarAtraso(usuario2);
 		Mockito.verifyNoMoreInteractions(email);
+		
+	}
+	
+	@Test
+	public void deveTratarErrosSPC() throws Exception {
+		// cenario
+		Usuario usuario = umUsuario().agora();
+		List<Filme> filmes = Arrays.asList(umFilme().agora());
+		
+		//Expectativa
+		Mockito.when(spc.possuiNegativacao(usuario)).thenThrow(new Exception("Problemas com SPC, tente novamente"));
+
+		// verificacao
+		exception.expect(LocadoraException.class);
+		exception.expectMessage("Problemas com SPC, tente novamente");
+		
+		// acao
+		service.alugarFilme(usuario, filmes);
+
 		
 	}
 }
