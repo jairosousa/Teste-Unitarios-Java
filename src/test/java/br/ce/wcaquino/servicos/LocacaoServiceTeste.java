@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
@@ -253,8 +254,13 @@ public class LocacaoServiceTeste {
 		
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Locacao> locacoes = Arrays.asList(umLocacao().comUsuario(usuario)
-				.comDataRetorno(obterDataComDiferencaDias(-2)).agora());
+		Usuario usuario2 = umUsuario().comNome("Usuario em dia").agora();
+		Usuario usuario3 = umUsuario().comNome("Outro trasado").agora();
+		List<Locacao> locacoes = Arrays.asList(
+				umLocacao().atrasada().comUsuario(usuario).agora(),
+				umLocacao().comUsuario(usuario2).agora(),
+				umLocacao().atrasada().comUsuario(usuario3).agora(),
+				umLocacao().atrasada().comUsuario(usuario3).agora());
 		
 		Mockito.when(dao.obterLocacoesPendentes()).thenReturn(locacoes);
 		
@@ -262,7 +268,11 @@ public class LocacaoServiceTeste {
 		service.nofiticarAtrasos();
 				
 		//verificacao
-		verify(email).notificarAtrazo(usuario);
+		verify(email, Mockito.times(3)).notificarAtraso(Mockito.any(Usuario.class));
+		verify(email).notificarAtraso(usuario);
+		verify(email, Mockito.atLeastOnce()).notificarAtraso(usuario3);
+		verify(email, never()).notificarAtraso(usuario2);
+		Mockito.verifyNoMoreInteractions(email);
 		
 	}
 }

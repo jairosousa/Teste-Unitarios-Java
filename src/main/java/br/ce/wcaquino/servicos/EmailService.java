@@ -4,5 +4,5 @@ import br.ce.wcaquino.entidades.Usuario;
 
 public interface EmailService {
 
-	public void notificarAtrazo(Usuario usuario);
+	public void notificarAtraso(Usuario usuario);
 }
