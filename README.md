@@ -1,6 +1,6 @@
 # Testes Unitário em Java
 
-	Curso de testes unitátios rm Java
+	Curso de testes unitátios em Java
 
 ## Tecnologias
 
@@ -12,7 +12,7 @@
 		
 ## Autor
 
-Francisco Wagner Costa Aquino
+	Francisco Wagner Costa Aquino
 
 ## Descrição
 
