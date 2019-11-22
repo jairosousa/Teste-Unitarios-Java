@@ -6,7 +6,7 @@ import java.util.List;
 public class Locacao {
 
 	private Usuario usuario;
-	private List<Filme> filme;
+	private List<Filme> filmes;
 	private Date dataLocacao;
 	private Date dataRetorno;
 	private Double valor;
@@ -43,12 +43,12 @@ public class Locacao {
 		this.valor = valor;
 	}
 
-	public List<Filme> getFilme() {
-		return filme;
+	public List<Filme> getFilmes() {
+		return filmes;
 	}
 
-	public void setFilme(List<Filme> filme) {
-		this.filme = filme;
+	public void setFilmes(List<Filme> filme) {
+		this.filmes = filme;
 	}
 
 }
