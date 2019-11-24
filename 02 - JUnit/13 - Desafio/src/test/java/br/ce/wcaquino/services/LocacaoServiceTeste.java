@@ -6,13 +6,13 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -53,10 +53,10 @@ public class LocacaoServiceTeste {
 
 		// Cenário -> onde as variavéis são inicializadas
 		Usuario usuario = new Usuario("Usuario 1");
-		Filme filme = new Filme("Filme 1", 2, 5.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 2, 5.0));
 
 		// Ação -> onde invocamos o metodo que vamos testar
-		Locacao locacao = service.alugarFilme(usuario, filme);
+		Locacao locacao = service.alugarFilme(usuario, filmes);
 
 		// Validação -> onde vamos coletar o resiltado da ação com o cenário
 		error.checkThat(locacao.getValor(), is(equalTo(5.0)));
@@ -74,10 +74,10 @@ public class LocacaoServiceTeste {
 	public void testLocacao_filmeSemEstoque() throws Exception {
 		// Cenário -> onde as variavéis são inicializadas
 		Usuario usuario = new Usuario("Usuario 1");
-		Filme filme = new Filme("Filme 1", 0, 5.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 0, 5.0));
 
 		// Ação -> onde invocamos o metodo que vamos testar
-		service.alugarFilme(usuario, filme);
+		service.alugarFilme(usuario, filmes);
 
 	}
 
@@ -85,11 +85,11 @@ public class LocacaoServiceTeste {
 	public void testeLocacaoUsuarioVazio() throws FilmeSemEstoqueException {
 
 		// Cenário
-		Filme filme = new Filme("Filme 1", 2, 4.0);
+		List<Filme> filmes = Arrays.asList(new Filme("Filme 1", 2, 4.0));
 
 		// Ação
 		try {
-			service.alugarFilme(null, filme);
+			service.alugarFilme(null, filmes);
 			Assert.fail();
 		} catch (LocadoraException e) {
 			assertThat(e.getMessage(), is("Usuario vazio"));
