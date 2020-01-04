@@ -16,6 +16,7 @@ public class Calculadora {
 		if (b == 0) {
 			throw new NaoPodeDividirPorZeroException();
 		}
-		return a/b;	}
+		return a / b;
+	}
 
 }
