@@ -41,4 +41,4 @@ Para essa métrica precisamos de uma ferramenta extra, na IDE eclipse temos plug
 
 ### A Imagem abaixo mostra resultados de testes de um determinado projeto.
 
-![imagem08](https://github.com/jairosousa/Teste-Unitarios-Java/blob/master/img/imagem08.PNG)
+![imagem08](https://github.com/jairosousa/Teste-Unitarios-Java/blob/master/img/imagem08.png)
